@@ -17,12 +17,13 @@ passengermodule = usr/lib/passenger/mod_passenger.so
 admintools = passenger-memory-stats passenger-make-enterprisey passenger-status
 
 clean::
-	rake clean
-	rake clobber
+	# Avoid build fails when debian patches fixe rake tasks ...
+	rake clean clobber || true
 
 build/libapache2-mod-passenger build/passenger-doc::
 	rake fakeroot
-	mv $(builddir) $(DEB_DESTDIR)
+	mkdir -p $(DEB_DESTDIR)
+	cp -r $(builddir)/* $(DEB_DESTDIR)
 
 binary-install/libapache2-mod-passenger::
 	mkdir -p $(CURDIR)/debian/$(cdbs_curpkg)/$(moddir)
