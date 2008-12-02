@@ -1,0 +1,24 @@
+passenger (2.0.4-1bbox1) hardy; urgency=low
+
+  * New upstream version, 2.0.4
+
+ -- John Leach <john@brightbox.co.uk>  Mon, 01 Dec 2008 23:00:11 +0000
+
+passenger (2.0.3-1bbox4) hardy; urgency=low
+
+  * Tweaked build-depends for Ruby 1.8
+
+ -- John Leach <john@brightbox.co.uk>  Wed, 26 Nov 2008 17:41:07 +0000
+
+passenger (2.0.3-0ubuntu1~bbox3) hardy; urgency=low
+
+  * Change rubygems depends to suggests
+  * Fix typo in control that led to mod_passenger.so being put in /
+
+ -- John Leach <john@brightbox.co.uk>  Wed, 26 Nov 2008 14:02:29 +0000
+
+passenger (2.0.3-0ubuntu1~bbox2) intrepid; urgency=low
+
+  * Initial release: closes LP: #246719
+
+ -- Neil Wilson <neil@brightbox.co.uk>  Sun, 17 Aug 2008 22:30:35 +0100

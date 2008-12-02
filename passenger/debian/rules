@@ -1,0 +1,37 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/rules/simple-patchsys.mk
+
+DEB_DH_INSTALL_SOURCEDIR := $(DEB_DESTDIR)
+DEB_INSTALL_DOCS_passenger-doc += DEVELOPERS.TXT $(DEB_DESTDIR)/usr/share/doc/passenger/
+DEB_INSTALL_MANPAGES_libapache2-mod-passenger += man/*
+
+bindir = usr/bin
+sbindir = usr/sbin
+builddir = pkg/fakeroot
+moddir = $(shell apxs2 -q LIBEXECDIR)
+modsavailabledir = etc/apache2/mods-available
+passengermodule = usr/lib/passenger/mod_passenger.so
+admintools = passenger-memory-stats passenger-make-enterprisey passenger-status
+
+clean::
+	rake clean
+	rake clobber
+
+build/libapache2-mod-passenger build/passenger-doc::
+	rake fakeroot
+	mv $(builddir) $(DEB_DESTDIR)
+
+binary-install/libapache2-mod-passenger::
+	mkdir -p $(CURDIR)/debian/$(cdbs_curpkg)/$(moddir)
+	mv $(CURDIR)/debian/$(cdbs_curpkg)/$(passengermodule) $(CURDIR)/debian/$(cdbs_curpkg)/$(moddir)
+	rm $(CURDIR)/debian/$(cdbs_curpkg)/$(bindir)/passenger-install-apache2-module
+	mkdir -p $(CURDIR)/debian/$(cdbs_curpkg)/$(sbindir)
+	for admintool in $(admintools); do \
+	    mv $(CURDIR)/debian/$(cdbs_curpkg)/$(bindir)/$$admintool $(CURDIR)/debian/$(cdbs_curpkg)/$(sbindir); \
+	    done;
+
+get-orig-source:
+	uscan --verbose --force-download
