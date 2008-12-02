@@ -1,3 +1,9 @@
+passenger (2.0.4-1) UNRELEASED; urgency=low
+
+  * Backport for debian
+
+ -- Alban Peignier <alban.peignier@free.fr>  Mon, 02 Dec 2008 11:48:11 +0100
+
 passenger (2.0.4-1bbox1) hardy; urgency=low
 
   * New upstream version, 2.0.4
