@@ -1,4 +1,10 @@
-passenger (2.0.4-1) UNRELEASED; urgency=low
+passenger (2.0.4-2) UNRELEASED; urgency=low
+
+  * Remove apache2-mpm-worker runtime dependency
+
+ -- Alban Peignier <alban.peignier@free.fr>  Thu, 04 Dec 2008 11:12:06 +0100
+
+passenger (2.0.4-1) unstable; urgency=low
 
   * Backport for debian
 
