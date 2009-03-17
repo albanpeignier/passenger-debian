@@ -5,25 +5,25 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/rules/simple-patchsys.mk
 
 DEB_DH_INSTALL_SOURCEDIR := $(DEB_DESTDIR)
-DEB_INSTALL_DOCS_passenger-doc += DEVELOPERS.TXT $(DEB_DESTDIR)/usr/share/doc/passenger/
+DEB_INSTALL_DOCS_passenger-doc += DEVELOPERS.TXT $(DEB_DESTDIR)/usr/share/doc/phusion_passenger/
 DEB_INSTALL_MANPAGES_libapache2-mod-passenger += man/*
 
 bindir = usr/bin
 sbindir = usr/sbin
 builddir = pkg/fakeroot
-moddir = $(shell apxs2 -q LIBEXECDIR)
+# output of $(shell apxs2 -q LIBEXECDIR) :
+moddir = /usr/lib/apache2/modules
 modsavailabledir = etc/apache2/mods-available
-passengermodule = usr/lib/passenger/mod_passenger.so
+passengermodule = usr/lib/phusion_passenger/mod_passenger.so
 admintools = passenger-memory-stats passenger-make-enterprisey passenger-status
 
 clean::
-	# Avoid build fails when debian patches fixe rake tasks ...
-	rake clean clobber || true
+	rake clean
+	rake clobber
 
 build/libapache2-mod-passenger build/passenger-doc::
 	rake fakeroot
-	mkdir -p $(DEB_DESTDIR)
-	cp -r $(builddir)/* $(DEB_DESTDIR)
+	mv $(builddir) $(DEB_DESTDIR)
 
 binary-install/libapache2-mod-passenger::
 	mkdir -p $(CURDIR)/debian/$(cdbs_curpkg)/$(moddir)
